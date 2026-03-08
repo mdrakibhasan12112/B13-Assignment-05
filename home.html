@@ -26,9 +26,92 @@
  </style>
 </head>
 
-<body>
+<body class="bg-base-300">
 
-<h1>Hello world</h1>
+ <header>
+  <div class=" flex flex-col gap-5 md:flex-row navbar bg-white shadow-sm">
+   <div class="flex-1">
+    <a class="btn btn-ghost text-xl">
+     <img class="w-[50px]" src="assets/github-logo.png" alt="">
+     <span>GitHub Issues Tracker</span>
+     <p></p>
+    </a>
+   </div>
+
+   <div class="flex gap-2">
+    <input type="text" placeholder="Search issues..." class="input input-bordered w-24 md:w-auto" />
+
+    <div class="">
+     <button class="btn btn-primary"> <i class="fa-solid fa-plus"></i>
+     New Issue</button>
+    </div>
+
+   </div>
+
+  </div>
+ </header>
+
+<section>
+ <div class="w-[80%] mx-auto mt-8 mb-5 p-5 flex gap-3 bg-white" >
+ 
+  <button id="all-btn" class="btn btn-primary">All</button>
+ 
+  <button id="open-btn" class="btn">Open</button>
+ 
+  <button id="closed-btn" class="btn">Closed</button>
+ 
+ </div>
+</section>
+
+
+<!-- Issues -->
+
+
+
+
+<section>
+ <div class=" w-[80%] mx-auto flex justify-between bg-white p-5">
+  <div class="flex gap-4">
+   <img src="assets/Aperture.png" alt="">
+ 
+   <div>
+    <h4 class="text-2xl font-bold"><span> 50 Issues</span></h4>
+    <p class="text-gray-400">Track and manage your project issues</p>
+   </div>
+  </div>
+ 
+  <div class="flex gap-2">
+   <p class="text-xl font-semibold">Open</p>
+   <p class="text-xl font-semibold">Closed</p>
+  </div>
+ </div>
+
+</section>
+
+
+<section class="w-[80%] mx-auto mt-6">
+ <div id="issues-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+ </div>
+</section>
+
+<!-- Open the modal using ID.showModal() method -->
+<!-- <button class="btn" onclick="my_modal_5.showModal()">open modal</button> -->
+
+<dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+ <div class="modal-box">
+  <h3 class="text-lg font-bold">Hello!</h3>
+  <p class="py-4">Press ESC key or click the button below to close</p>
+  <div class="modal-action">
+   <form method="dialog">
+    <!-- if there is a button in form, it will close the modal -->
+    <button class="btn">Close</button>
+   </form>
+  </div>
+ </div>
+</dialog>
+
+
+<script src="script/home.js"></script>
 </body>
 
 </html>
