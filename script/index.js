@@ -11,7 +11,7 @@ document.getElementById('signin-btn').addEventListener('click',() => {
  if (text == "admin" && pin == "admin123") {
   alert("log-in successful")
 
-  window.location.assign("/home.html")
+  window.location.assign("home.html")
  } else {
   alert("log-in failed")
   return;

@@ -42,7 +42,9 @@ document.getElementById('all-btn').addEventListener('click', () => {
 });
 document.getElementById('open-btn').addEventListener('click', () => {
   setActiveBtn('open-btn');
+
   const openIssues = allIssues.filter(issue => issue.status === 'open');
+
   displayIssues(openIssues);
 });
 document.getElementById('closed-btn').addEventListener('click', () => {
@@ -50,6 +52,7 @@ document.getElementById('closed-btn').addEventListener('click', () => {
   const closedIssues = allIssues.filter(issue => issue.status === 'closed');
   displayIssues(closedIssues);
 });
+
 
 
 const cardDetails = async (id) => {
@@ -107,6 +110,7 @@ const displayIssues = issues => {
 
     const borderColor =
       issue.status === 'open' ? 'border-green-500' : 'border-purple-500';
+
     
     div.innerHTML = `
 
