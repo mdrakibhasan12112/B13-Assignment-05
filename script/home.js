@@ -1,74 +1,14 @@
-// function loadIssues() {
-//  fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issues`)
-//   .then(res => res.json())
-//  .then(data => showIssues(data.data))
-// }
 
-// function showIssues(issues) {
-//  const container = document.getElementById('issues-container');
 
-//  container.innerHTML = ""
-//  issues.forEach(issue => {
-//   console.log(issue);
-//   const card = document.createElement('div')
-//   // div.className = `card ${issue.status}`
-//   card.innerHTML = `
-// <h3>${issue.title}</h3>
-// <p>${issue.description}</p>
-//   `;
-//   container.appendChild(card)
 
-//  });
-// }
-// loadIssues()
 
-// let allIssues = [];
-
-// fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
-//   .then(res => res.json())
-//   .then(data => {
-//     allIssues = data.data;
-//     showIssues(allIssues);
-//   });
-
-// document.getElementById('allBtn').addEventListener('click', () => {
-//   showIssues(allIssues);
-// });
-
-// document.getElementById('openBtn').addEventListener('click', () => {
-//   const openIssues = allIssues.filter(issue => issue.status === 'open');
-//   showIssues(openIssues);
-// });
-
-// document.getElementById('closedBtn').addEventListener('click', () => {
-//   const closedIssues = allIssues.filter(issue => issue.status === 'closed');
-//   showIssues(closedIssues);
-// });
-
-// function showIssues(issues) {
-//   const container = document.getElementById('issuesContainer');
-//   container.innerHTML = '';
-
-//   issues.forEach(issue => {
-//     const card = document.createElement('div');
-
-//     card.innerHTML = `
-//       <h3>${issue.title}</h3>
-//       <p>${issue.description}</p>
-//       <div>
-//       <p>${issue.labels}</p>
-//       </div>
-//       <p>${issue.author}</p>
-//       <p>${issue.createdAt}</p>
-//     `;
-
-//     container.appendChild(card);
-//   });
-// }
 
 let allIssues = [];
 
 const loadIssues = () => {
+  toggleSpinner(true)
+
+  document.getElementById('issues-container').classList.add('hidden');
   fetch('https://phi-lab-server.vercel.app/api/v1/lab/issues')
     .then(res => res.json())
 
@@ -76,62 +16,33 @@ const loadIssues = () => {
       allIssues = data.data;
 
       displayIssues(allIssues);
+      toggleSpinner(false);
+        document.getElementById('issues-container').classList.remove('hidden');
     });
+};
+
+const toggleSpinner = show => {
+  const spinner = document.getElementById('spinner');
+  if (show) {
+    spinner.classList.remove('hidden');
+  } else {
+    spinner.classList.add('hidden');
+  }
 };
 
 
 
-// assignee
-// : 
-// "jane_smith"
-// author
-// : 
-// "john_doe"
-// createdAt
-// : 
-// "2024-01-15T10:30:00Z"
-// description
-// : 
-// "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior."
-// id
-// : 
-// 1
-// labels
-// : 
-// Array(2)
-// 0
-// : 
-// "bug"
-// 1
-// : 
-// "help wanted"
-// length
-// : 
-// 2
-// [[Prototype]]
-// : 
-// Array(0)
-// priority
-// : 
-// "high"
-// status
-// : 
-// "open"
-// title
-// : 
-// "Fix navigation menu on mobile devices"
-// updatedAt
-// : 
-// "2024-01-15T10:30:00Z"
-// [[Prototype]]
-// : 
-// Object
 const cardDetails = async (id) => {
+  toggleSpinner(true)
+
+  document.getElementById('issues-container').classList.add('hidden');
   const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
   // console.log(url);
   const res = await fetch(url)
   const details = await res.json()
   displayCardDetails(details.data);
+  toggleSpinner(false)
+    document.getElementById('issues-container').classList.remove('hidden');
 }
 const displayCardDetails = (issue) => {
   console.log(issue);
@@ -163,13 +74,12 @@ const displayCardDetails = (issue) => {
 }
 
 
-
 const displayIssues = issues => {
 
   const container = document.getElementById('issues-container');
 
   container.innerHTML = '';
-
+ document.getElementById('issue-count').innerText = issues.length;
   issues.forEach(issue => {
 
     const div = document.createElement('div');
@@ -230,3 +140,16 @@ document.getElementById('closed-btn').addEventListener('click', () => {
   displayIssues(closedIssues);
 });
 loadIssues()
+
+
+const search = async () => {
+  const searchText = document.getElementById('search-btn').value;
+
+  const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
+
+  const res = await fetch(url);
+
+  const data = await res.json();
+
+  displayIssues(data.data);
+};
