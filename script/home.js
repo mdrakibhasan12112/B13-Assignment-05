@@ -20,7 +20,7 @@ const loadIssues = () => {
         document.getElementById('issues-container').classList.remove('hidden');
     });
 };
-
+// spinner added
 const toggleSpinner = show => {
   const spinner = document.getElementById('spinner');
   if (show) {
@@ -29,6 +29,34 @@ const toggleSpinner = show => {
     spinner.classList.add('hidden');
   }
 };
+// toggol button
+const setActiveBtn = id => {
+  const buttons = ['all-btn', 'open-btn', 'closed-btn'];
+  buttons.forEach(btnId => {
+    document.getElementById(btnId).classList.remove('btn-primary');
+  });
+  document.getElementById(id).classList.add('btn-primary');
+};
+
+document.getElementById('all-btn').addEventListener('click', () => {
+  setActiveBtn('all-btn');
+
+  displayIssues(allIssues);
+});
+document.getElementById('open-btn').addEventListener('click', () => {
+  setActiveBtn('open-btn');
+
+  const openIssues = allIssues.filter(issue => issue.status === 'open');
+
+  displayIssues(openIssues);
+});
+document.getElementById('closed-btn').addEventListener('click', () => {
+  setActiveBtn('closed-btn');
+
+  const closedIssues = allIssues.filter(issue => issue.status === 'closed');
+
+  displayIssues(closedIssues);
+});
 
 
 
@@ -80,6 +108,7 @@ const displayIssues = issues => {
 
   container.innerHTML = '';
  document.getElementById('issue-count').innerText = issues.length;
+
   issues.forEach(issue => {
 
     const div = document.createElement('div');
